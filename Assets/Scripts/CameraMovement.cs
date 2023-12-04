@@ -6,22 +6,17 @@ using UnityEngine.InputSystem;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
-    private float _mouseSensitivity;
-    private Vector2 _moveInput;
+    private float _rotationSpeed;
+    private Rigidbody _rb;
 
-    private void Update()
+    private void Awake()
     {
-        float mouseX = _moveInput.x * _mouseSensitivity;
-        float mouseY = _moveInput.y * _mouseSensitivity;
-
-        Vector3 currentRotation = transform.localEulerAngles;
-        currentRotation.y += mouseX;
-        currentRotation.x -= mouseY;
-        transform.localRotation = Quaternion.Euler(currentRotation);
+        _rb = GetComponent<Rigidbody>();
     }
 
-    public void OnLook(InputValue value)
+    public void OnRotate(InputValue value)
     {
-        _moveInput = value.Get<Vector2>();
+        var moveInput = value.Get<float>();
+        _rb.angularVelocity = moveInput * _rotationSpeed * Mathf.Deg2Rad * Vector3.up;
     }
 }

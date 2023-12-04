@@ -7,23 +7,24 @@ public class Movement : MonoBehaviour
 {
     [SerializeField]
     private float _moveSpeed;
-    private Vector2 _moveInput;
     private Rigidbody _rb;
+    private Transform _camTransform;
     
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _moveInput = Vector2.zero;
-    }
-
-    private void Update()
-    {
-        _rb.velocity = new Vector3(_moveInput.x * _moveSpeed, _rb.velocity.y, _moveInput.y * _moveSpeed);
+        _camTransform = Camera.main.transform;
     }
 
     public void OnMove(InputValue value)
     {
-        _moveInput = value.Get<Vector2>();
-        Debug.Log(_moveInput);
+        var moveInput = value.Get<Vector2>();
+        var camForward = Vector3.Scale(_camTransform.forward, new Vector3(1, 0, 1)).normalized;
+        var camRight = _camTransform.right;
+
+        var move = moveInput.x * camRight + moveInput.y * camForward;
+        move.Normalize(); 
+
+        _rb.velocity = move * _moveSpeed;
     }
 }
