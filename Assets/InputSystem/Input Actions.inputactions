@@ -18,7 +18,7 @@
                     "name": "Rotate",
                     "type": "Value",
                     "id": "d406d481-5384-4086-94be-137b692db733",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -125,37 +125,15 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "QE",
-                    "id": "8b7b0157-fbf5-4ca6-8c76-ec2e7ac1fda1",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "27b1498d-1f35-4b96-b64f-9a62a116a5ce",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Rotate",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "Negative",
-                    "id": "1541a1d2-93ff-4861-b16c-b70101ad7733",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Positive",
-                    "id": "1634f382-c4d4-4369-800e-be4237901da7",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Rotate",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         },
