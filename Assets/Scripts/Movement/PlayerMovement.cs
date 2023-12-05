@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour, IInputReceiver<Vector2>
 {
@@ -19,7 +17,6 @@ public class PlayerMovement : MonoBehaviour, IInputReceiver<Vector2>
     {
         _rb = GetComponent<Rigidbody>();
         _camTransform = Camera.main.transform;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void SetInputValue(Vector2 value)
@@ -29,14 +26,15 @@ public class PlayerMovement : MonoBehaviour, IInputReceiver<Vector2>
 
     private void FixedUpdate()
     {
-        var camForward = Vector3.Scale(_camTransform.forward, new Vector3(1, 0, 1)).normalized;
-        var camRight = _camTransform.right;
+        Move();
+    }
 
-        var move = _moveInput.x * camRight + _moveInput.y * camForward;
+    private void Move()
+    {
+        var move = _moveInput.x * _camTransform.right + _moveInput.y * _camTransform.forward;
         move.Normalize();
 
         _rb.AddForce(move * _moveSpeed);
-
         if (_rb.velocity.magnitude > _maxSpeed)
         {
             _rb.velocity = _rb.velocity.normalized * _maxSpeed;
