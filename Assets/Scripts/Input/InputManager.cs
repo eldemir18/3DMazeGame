@@ -14,19 +14,39 @@ public class InputManager : MonoBehaviour
     private IInputReceiver<Vector2> _playerMovement;
     private IInputReceiver<Vector2> _cameraFollow;
 
+    private bool _isInputEnabled = true;
+
     private void Awake()
     {
         _playerMovement = _player.GetComponent<IInputReceiver<Vector2>>();
         _cameraFollow = _camera.GetComponent<IInputReceiver<Vector2>>();
     }
 
-    public void OnMove(InputValue value)
+    private void OnEnable()
     {
-        _playerMovement?.SetInputValue(value.Get<Vector2>());
+        InteractableGoal.OnGoalReached += () => _isInputEnabled = false;
     }
 
-    public void OnRotate(InputValue value)
+    private void OnDisable()
     {
-        _cameraFollow?.SetInputValue(value.Get<Vector2>());
+        InteractableGoal.OnGoalReached -= () => _isInputEnabled = false;
+    }
+
+    private void OnMove(InputValue value)
+    {
+        SetInput(_playerMovement, value.Get<Vector2>());
+    }
+
+    private void OnRotate(InputValue value)
+    {
+        SetInput(_cameraFollow, value.Get<Vector2>());
+    }
+
+    private void SetInput<T>(IInputReceiver<T> receiver, T value) where T : struct
+    {
+        if(_isInputEnabled)
+        {
+            receiver.SetInputValue(value);
+        }
     }
 }

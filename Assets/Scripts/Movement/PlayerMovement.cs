@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour, IInputReceiver<Vector2>
     {
         _moveInput = value;
     }
-
+    
     private void FixedUpdate()
     {
         Move();
@@ -36,10 +36,11 @@ public class PlayerMovement : MonoBehaviour, IInputReceiver<Vector2>
         var move = _moveInput.x * camRight + _moveInput.y * camForward;
         move.Normalize();
 
-        _rb.AddForce(move * _moveSpeed);
+        _rb.AddForce(move * _moveSpeed);        
         if (_rb.velocity.magnitude > _maxSpeed)
         {
             _rb.velocity = _rb.velocity.normalized * _maxSpeed;
         }
     }
+
 }

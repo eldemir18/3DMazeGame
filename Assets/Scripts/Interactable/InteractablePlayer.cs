@@ -11,4 +11,12 @@ public class InteractablePlayer : MonoBehaviour
             interactable.Interact();
         }
     }
+
+    public void OnTriggerEnter(Collider collider)
+    {
+        if(collider.TryGetComponent<IInteractable>(out var interactable))
+        {
+            interactable.Interact();
+        }
+    }
 }

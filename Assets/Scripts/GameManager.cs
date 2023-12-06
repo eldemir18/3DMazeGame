@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,11 +26,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _startPosition = _playerTransform.transform.position;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void ResetPlayerPosition()
     {
         _playerTransform.position = _startPosition;
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
