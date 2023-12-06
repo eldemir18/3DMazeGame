@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour, IInputReceiver<Vector2>
     
     private void LateUpdate()
     {
-        Quaternion rotation = Quaternion.Euler(_currentRotationY, _currentRotationX, 0);
+        Quaternion rotation = Quaternion.Euler(_currentRotationY, _currentRotationX, 0f);
         Vector3 direction = rotation * Vector3.forward;
 
         // Calculate position on the surface of the sphere
@@ -30,6 +30,7 @@ public class CameraFollow : MonoBehaviour, IInputReceiver<Vector2>
     {
         _currentRotationX += value.x * _sensitivity;
         _currentRotationY -= value.y * _sensitivity;
-        _currentRotationY = Mathf.Clamp(_currentRotationY, -89f, 89f);
+
+        _currentRotationY = Mathf.Clamp(_currentRotationY, -89f, 0f);
     }
 }

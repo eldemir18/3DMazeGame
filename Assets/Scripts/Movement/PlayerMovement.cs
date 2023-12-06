@@ -31,7 +31,9 @@ public class PlayerMovement : MonoBehaviour, IInputReceiver<Vector2>
 
     private void Move()
     {
-        var move = _moveInput.x * _camTransform.right + _moveInput.y * _camTransform.forward;
+        var camForward = Vector3.Scale(_camTransform.forward, new Vector3(1, 0, 1)).normalized;
+        var camRight = _camTransform.right;
+        var move = _moveInput.x * camRight + _moveInput.y * camForward;
         move.Normalize();
 
         _rb.AddForce(move * _moveSpeed);

@@ -11,21 +11,22 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private GameObject _camera;
 
+    private IInputReceiver<Vector2> _playerMovement;
+    private IInputReceiver<Vector2> _cameraFollow;
+
+    private void Awake()
+    {
+        _playerMovement = _player.GetComponent<IInputReceiver<Vector2>>();
+        _cameraFollow = _camera.GetComponent<IInputReceiver<Vector2>>();
+    }
+
     public void OnMove(InputValue value)
     {
-        SetInput<Vector2>(_player, value);
+        _playerMovement?.SetInputValue(value.Get<Vector2>());
     }
 
     public void OnRotate(InputValue value)
     {
-        SetInput<Vector2>(_camera, value);
-    }
-    
-    private void SetInput<T>(GameObject target, InputValue value) where T : struct
-    {
-        if (target.TryGetComponent<IInputReceiver<T>>(out var inputReceiver))
-        {
-            inputReceiver.SetInputValue(value.Get<T>());
-        }
+        _cameraFollow?.SetInputValue(value.Get<Vector2>());
     }
 }

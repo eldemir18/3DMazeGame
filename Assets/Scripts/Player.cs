@@ -5,11 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public PlayerMovement MoveComponent {get; private set;}
-    public PlayerHealth HealthComponent {get; private set;}
+    public InteractablePlayer HealthComponent {get; private set;}
 
     private void Awake()
     {
         MoveComponent = GetComponent<PlayerMovement>();
-        HealthComponent = GetComponent<PlayerHealth>();
+        HealthComponent = GetComponent<InteractablePlayer>();
     }
 }
